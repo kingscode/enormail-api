@@ -8,10 +8,11 @@ class Test extends AbstractEndpoint
 {
     /**
      * Testing if your settings are correct and the host is available.
+     *
      * @return \Illuminate\Http\Client\Response
      */
-    public function ping()
+    public function ping(): \Illuminate\Http\Client\Response
     {
-        return $this->client->getHttp()->get('/ping.'.$this->client->getFormat());
+        return $this->client->getHttp()->get('/ping.' . $this->client->getFormat());
     }
 }

@@ -52,7 +52,7 @@ class Contacts extends AbstractEndpoint
     public function update(
         $listid,
         $email,
-        ?string $name = null,
+        string $name = null,
         array $fields = null,
         array $tags = null,
         $activate_autoresponder = 1

@@ -5,14 +5,26 @@ namespace Kingscode\EnormailApi\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Http\Client\PendingRequest;
 use Kingscode\EnormailApi\Endpoints\Contacts;
 use Kingscode\EnormailApi\Endpoints\Test;
+use Kingscode\EnormailApi\Exception\ConfigurationException;
 
 class Client
 {
 
-    public function __construct(private string $format = 'json')
+    protected string $host = 'https://api.enormail.eu/api/1.0';
+
+    protected string $version = '1.0';
+
+    protected string $apiKey;
+
+    public function __construct(protected string $format = 'json')
     {
+        $this->apiKey = Config::get('enormail.api_key');
+        if (empty($this->apiKey)) {
+            throw new ConfigurationException('enormail.api_key');
+        }
     }
 
     public function getFailoverListId(): ?string
@@ -20,12 +32,13 @@ class Client
         return Config::get('enormail.failover_list_id');
     }
 
-    public function getHttp(): ?Http
+    public function getHttp(): ?PendingRequest
     {
-        return Http::withBasicAuth(Config::get('enormail.api_key'), ':password')
+        return Http::withBasicAuth($this->apiKey, ':password')
+            ->withMiddleware('throttle:60,1')
             ->withHeaders([
-                'X-Example' => 'example',
-            ])->baseUrl('https://github.com');
+                'User-Agent' => 'EM REST API WRAPPER ' . $this->version,
+            ])->baseUrl($this->host);
     }
 
     /**
@@ -42,15 +55,6 @@ class Client
     public function setFormat(string $format): void
     {
         $this->format = $format;
-    }
-
-
-    public function test(){
-        return new Test($this);
-    }
-
-    public function contacts(?string $listId = null){
-        return new Contacts($this, $listId);
     }
 
 }

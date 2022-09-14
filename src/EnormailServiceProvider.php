@@ -3,6 +3,7 @@
 namespace Kingscode\EnormailApi;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Http;
 
 class EnormailServiceProvider extends ServiceProvider
 {

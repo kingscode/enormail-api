@@ -35,7 +35,6 @@ class Client
     public function getHttp(): ?PendingRequest
     {
         return Http::withBasicAuth($this->apiKey, ':password')
-            ->withMiddleware('throttle:60,1')
             ->withHeaders([
                 'User-Agent' => 'EM REST API WRAPPER ' . $this->version,
             ])->baseUrl($this->host);

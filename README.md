@@ -47,3 +47,6 @@ if you have the Failover list id set, then you are able to use.
 ```injectablephp
 $factory->contacts()->getClient()->getFailoverListId();
 ```
+
+For the use of the a ratelimit, due to the 5 requests per second.  
+https://github.com/spatie/laravel-rate-limited-job-middleware

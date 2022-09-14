@@ -1,0 +1,30 @@
+{
+    "name": "kingscode/enormail-api",
+    "description": "Enormail API client",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vinon",
+            "email": "5892069+V1n0n@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": ">=8",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kingscode\\EnormailApi\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kingscode\\EnormailApi\\EnormailServiceProvider"
+            ]
+        }
+    }
+}

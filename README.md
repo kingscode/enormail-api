@@ -48,5 +48,27 @@ if you have the Failover list id set, then you are able to use.
 $factory->contacts()->getClient()->getFailoverListId();
 ```
 
-For the use of the a ratelimit, due to the 5 requests per second.  
-https://github.com/spatie/laravel-rate-limited-job-middleware
+### RateLimit
+The API endpoints of Enormail have a ratelimit of 5 calls per second.
+To account for this, there is the possibility to add a RteLimit in the job
+This is part of a 3rd party packagde.
+
+```text
+composer require spatie/laravel-rate-limited-job-middleware
+```
+
+(If your application uses Redis, remove the false from the constructor call.)
+
+```injectablephp
+
+    public function middleware()
+    {
+        $rateLimitedMiddleware = (new RateLimited(false))
+            ->allow(5)
+            ->everySeconds(1)
+            ->releaseAfterSeconds(5);
+
+        return [$rateLimitedMiddleware];
+    }
+
+```

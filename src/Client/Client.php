@@ -21,10 +21,10 @@ class Client
 
     public function __construct(protected string $format = 'json')
     {
-        $this->apiKey = Config::get('enormail.api_key');
-        if (empty($this->apiKey)) {
+        if (! Config::has('enormail.api_key')) {
             throw new ConfigurationException('enormail.api_key');
         }
+        $this->apiKey = Config::get('enormail.api_key');
     }
 
     public function getFailoverListId(): ?string
@@ -34,6 +34,10 @@ class Client
 
     public function getHttp(): ?PendingRequest
     {
+        if (empty($this->apiKey)) {
+            throw new ConfigurationException('enormail.api_key');
+        }
+
         return Http::withBasicAuth($this->apiKey, ':password')
             ->withHeaders([
                 'User-Agent' => 'EM REST API WRAPPER ' . $this->version,

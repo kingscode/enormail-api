@@ -27,11 +27,6 @@ class Client
         $this->apiKey = Config::get('enormail.api_key');
     }
 
-    public function getFailoverListId(): ?string
-    {
-        return Config::get('enormail.failover_list_id');
-    }
-
     public function getHttp(): ?PendingRequest
     {
         if (empty($this->apiKey)) {

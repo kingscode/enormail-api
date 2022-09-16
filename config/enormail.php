@@ -9,10 +9,5 @@ return [
      */
     'api_key' => env('ENORMAIL_API_KEY', ''),
 
-    /**
-     * It is convinient to add a failover list Id.
-     */
-    'failover_list_id' => env('ENORMAIL_FAILOVER_LIST_ID', ''),
-
 ];
 
